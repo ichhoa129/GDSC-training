@@ -1,44 +1,10 @@
 var express = require('express');
-const { createBook } = require('../controller/book.controller');
+const { createBook, getBooks } = require('../controller/book.controller');
 const createBookMiddleware = require('../middlewares/create-book.middleware');
 var router = express.Router();
 
-const books = [
-  {
-    id: 1,
-    title: 'The Lord of the Rings',
-    created_at: '2017-01-01',
-  },
-  {
-    id: 2,
-    title: 'The Hobbit',
-    created_at: '2018-01-01',
-  },
-  {
-    id: 2,
-    title: 'The Hobbit',
-    created_at: '2018-01-02',
-  },
-  {
-    id: 2,
-    title: 'The new Hobbit',
-    created_at: '2018-01-01',
-  },
-]
 
-
-router.get('/',function(req, res, next) {
-  const query = req.query;
-  if(Object.keys(query).length === 0) {
-    console.log('no query');
-    return res.json(books);
-  }
-
-  console.log(query);
-
-  let listBooks = books.filter(book => book.id === parseInt(query.id) && book.created_at === query.created_at);
-  return res.json(listBooks);
-});
+router.get('/',getBooks);
 
 router.get('/:id',function(req, res, next) {
   const id = req.params.id;

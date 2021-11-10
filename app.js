@@ -4,11 +4,14 @@ var path = require('path');
 
 var indexRouter = require('./routes/index');
 var booksRouter = require('./routes/books');
+const { connectDatabase } = require('./database');
 
 var app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+connectDatabase();
 
 app.use('/', indexRouter);
 app.use('/books', booksRouter);
